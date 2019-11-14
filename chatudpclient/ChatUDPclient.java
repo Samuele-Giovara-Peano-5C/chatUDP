@@ -38,7 +38,7 @@ public class ChatUDPclient {
         try {
 
             socket = new DatagramSocket();
-            
+            //DatagramPacket nickName= new DatagramPacket("MioNome".getBytes(), "MioNome".getBytes().length, address, UDP_port);
 
             //creo il thread che riceve i messaggi dal server e scrive su schermo i messaggi ricevuti
             Thread receiveAndPrint = new Thread(new ReceiveFromServerAndPrint(socket));
@@ -46,7 +46,7 @@ public class ChatUDPclient {
             System.out.println("sono in ascolto...");
 
             //creo il thread che invia il messaggio digitato da utente verso il server
-            Thread sendUserInput = new Thread(new SendUserInputToServer(socket, address, UDP_port));
+            Thread sendUserInput = new Thread(new SendUserInputToServer(socket, address, UDP_port, "Boris"));//Il metodo richiede una STRING che svolge il ruolo del nickname
             sendUserInput.start();
             System.out.println("utente e' invitato di inserire un messaggio da inviare al server...");
 
