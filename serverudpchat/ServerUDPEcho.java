@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package serverudpchat;
+package serverudpecho;
 
 import java.io.IOException;
 import java.net.SocketException;
@@ -25,16 +25,16 @@ public class ServerUDPEcho {
         try {
             
             // TODO code application logic here
-            UDPEcho echoServer= new UDPEcho(1077);
-            thread= new Thread(echoServer);
+                UDPEcho echoServer= new UDPEcho(1077);
+                thread= new Thread(echoServer);
             //echoServer.start();
-            thread.start();
-            c=System.in.read();
+                thread.start();
+                c=System.in.read();
             //echoServer.interrupt();
-            thread.interrupt();
+                thread.interrupt();
             //echoServer.join();
-            thread.join();
-            System.out.println("sono il main");
+                thread.join();
+                System.out.println("sono il main");
 //          for(;;){
 //              
 //          }
