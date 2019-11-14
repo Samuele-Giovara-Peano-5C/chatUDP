@@ -27,7 +27,7 @@ public class SendUserInputToServer implements Runnable {
         this.socket = socket;
             this.address = address;
                 this.UDP_port = UDP_port;
-                    this.nome=nome;//Aggiunta del nickname
+                    this.nome=nome;     //Aggiunta del nickname
     }
     /**
      *
