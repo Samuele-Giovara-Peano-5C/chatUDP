@@ -12,7 +12,7 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author Giovara
+ * @author 
  */
 public class ServerUDPEcho {
 

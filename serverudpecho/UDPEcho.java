@@ -13,7 +13,7 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author Giovara
+ * @author 
  */
 
 //utilizzo la classe Clients per memorizzare indirizzo e porta dei clients che si collegano al server
@@ -31,6 +31,7 @@ class Clients {
 //modifico la classe UDPecho usata dal server echo per uso con la chat
 public class UDPEcho implements Runnable {
 
+    private ListaMessaggi lm = new ListaMessaggi();
     private DatagramSocket socket;
     Clients client = new Clients(InetAddress.getByName("0.0.0.0"), 0);
 
@@ -65,14 +66,17 @@ public class UDPEcho implements Runnable {
                 System.out.println(clientID);
                 //verifico se il client e' gia' conosciuto o se e' la prima volta che invia un pacchetto
                 if(clients.get(clientID) == null) {
-                    //nel caso sia la prima volta lo inserisco nella lista
+                    //nel caso sia la prima volta lo inserisco nella lista e gli mando i messaggi vecchi
                     clients.put(clientID, new Clients(client.addr, client.port)); 
+                    lm.mandaMessaggi(socket, client);
                 }
                 System.out.println(clients);
                 message = new String(request.getData(), 0, request.getLength(), "ISO-8859-1");
                 if(message == "quit") {
                     //client si e' rimosso da chat, lo rimuovo da lista dei client connessi
                     clients.remove(clientID);
+                } else {
+                 lm.aggiungiMessaggio(message);
                 }
 
                 //invio il messaggio ricevuto a tutti i client connessi al server
