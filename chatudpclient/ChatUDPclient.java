@@ -1,3 +1,8 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package chatudpclient;
 
 import java.io.IOException;
@@ -10,39 +15,41 @@ import java.net.UnknownHostException;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import chatudpclient.ReceiveFromServerAndPrint;
 
 /**
  *
- * @author Giovara 
+ * @author Prof Matteo Palitto
  */
 public class ChatUDPclient {
 
     /**
      * @param args the command line arguments
-     * @throws java.net.UnknownHostException
      */
     public static void main(String[] args) throws UnknownHostException {
 
         String IP_address = "127.0.0.1";
         InetAddress address = InetAddress.getByName(IP_address);
-        int UDP_port = 1234;
+        int UDP_port = 1077;
 
-
+        try {
+            new Gui();
+        } catch (SocketException ex) {
+            Logger.getLogger(ChatUDPclient.class.getName()).log(Level.SEVERE, null, ex);
+        }
         DatagramSocket socket;
         try {
 
             socket = new DatagramSocket();
-            
+            //DatagramPacket nickName= new DatagramPacket("MioNome".getBytes(), "MioNome".getBytes().length, address, UDP_port);
 
             //creo il thread che riceve i messaggi dal server e scrive su schermo i messaggi ricevuti
             Thread receiveAndPrint = new Thread(new ReceiveFromServerAndPrint(socket));
             receiveAndPrint.start();
             System.out.println("sono in ascolto...");
-            System.out.println("");
+
             //creo il thread che invia il messaggio digitato da utente verso il server
-            Thread sendUserInput = new Thread(new SendUserInputToServer(socket, address, UDP_port));
+            Thread sendUserInput = new Thread(new SendUserInputToServer(socket, address, UDP_port, "Boris"));//Il metodo richiede una STRING che svolge il ruolo del nickname
             sendUserInput.start();
             System.out.println("utente e' invitato di inserire un messaggio da inviare al server...");
 
